@@ -60,13 +60,19 @@ body {
   }
 }
 
+@media screen and (max-width: 672px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
 .container {
   display: flex;
   justify-content: center;
 }
 
 #mainSource {
-  display: none;
+  display: block;
   text-align: center;
   border: 2px solid #1fc8db;
   border-radius: 20px;
