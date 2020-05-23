@@ -26,12 +26,12 @@ loadWeather.addEventListener('click', () => { // start loading weather informati
         const wData = JSON.parse(xhr.responseText); // parsing JSON format
         const _wTemp = Math.round(wData.main.temp - 273,15); // converting temperature to Celsius, because in response temperature is returned Kelvins
         const _wDescClone = wData.weather[0]['description']; // getting weather description from response
-        const _wIcon = '<img src=' + '"' + 'https://openweathermap.org/img/wn/' + wData.weather[0]['icon'] + '@2x.png' + '"' + ' alt="weatherIcon" ' + '/>'; // refreshing the weather image
+        const _wIcon = '<img src=' + '"' + 'https://openweathermap.org/img/wn/' + wData.weather[0]['icon'] + '@2x.png' + '"' + ' alt="weatherIcon" ' + '/>'; // getting weather icon from response
         if (wList.has(wData.name)) {
           document.querySelector(`#${wData.name}`).innerHTML = wData.name; // refreshing the name information
           document.querySelector(`#${wData.name}_description`).innerHTML = _wDescClone; // regreshing the description information
           document.querySelector(`#${wData.name}_weatherDeg`).innerHTML = _wTemp + '&deg;'; // refreshing the temperature information
-          document.querySelector(`#${wData.name}_weatherIcon`).innerHTML = _wIcon;
+          document.querySelector(`#${wData.name}_weatherIcon`).innerHTML = _wIcon; //  refreshing the weather image
         } else {
           wList.add(wData.name); // adding response name information to Set object
           const childSource = document.createElement('div'); // creating a new block, for adding in this, data from response
