@@ -20,8 +20,7 @@ loadWeather.addEventListener('click', () => { // start loading weather informati
       xhr.send(); // send our request
       if (xhr.status != 200 && xhr.readyState != 4) { // if response is not OK, handle an error
         console.error('Error ' + xhr.status + ': ' + xhr.statusText); // show error
-        wWarnings.innerHTML = 'Please check Your internet connection and try again.'; // add warning text
-        wWarnings.style.display = 'block'; // show warning text to user
+        throw 'Please check Your internet connection and try again.'; //throw an error
       } else { // else if response is OK, display results
         const wData = JSON.parse(xhr.responseText); // parsing JSON format
         const _wTemp = Math.round(wData.main.temp - 273,15); // converting temperature to Celsius, because in response temperature is returned Kelvins
@@ -50,7 +49,7 @@ loadWeather.addEventListener('click', () => { // start loading weather informati
         wWarnings.innerHTML = 'Please check the spelling and the data you entered.'; // add warning text
         wWarnings.style.display = 'block'; // show warning text to user
       } else {
-        wWarnings.innerHTML = 'Please check Your internet connection and try again.'; // add warning text
+        wWarnings.innerHTML = err; // add warning text
         wWarnings.style.display = 'block'; // show warning text to user
       }
     }

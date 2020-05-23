@@ -148,6 +148,7 @@ body {
 
 #warnings {
   display: none;
+  text-align: center;
   margin-top: 10px;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
