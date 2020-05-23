@@ -1,4 +1,4 @@
-# Weather [https://hovoghazaryan.github.io/weather/](LIVE)
+# Weather [LIVE](https://hovoghazaryan.github.io/weather/)
 The small web site for see weather now in different countries and cities
 ---
 ## Contributors
