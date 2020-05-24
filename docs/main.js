@@ -44,9 +44,11 @@ loadWeather.addEventListener('click', () => { // start loading weather informati
         }
       }
     } catch (err) { // catch an error
-      console.error(err); // show this error
       if (err instanceof TypeError) {
         wWarnings.innerHTML = 'Please check the spelling and the data you entered.'; // add warning text
+        wWarnings.style.display = 'block'; // show warning text to user
+      } else if (err instanceof DOMException) {
+        wWarnings.innerHTML = 'Please check Your internet connection and try again.'; // add warning text
         wWarnings.style.display = 'block'; // show warning text to user
       } else {
         wWarnings.innerHTML = err; // add warning text
