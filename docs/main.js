@@ -8,19 +8,21 @@ let wList = new Set();
 document.addEventListener('input', () => { // if user started enter the text in fields, hide warning block
   document.querySelector('#warnings').style.display = 'none';
 });
+function showWarnings(message) {
+  wWarnings.innerHTML = message; // add warning text
+  wWarnings.style.display = 'block'; // show warning text to user
+}
 loadWeather.addEventListener('click', () => { // start loading weather information
   if (cityName.value === '' || countryCode.value === '') { // If fields are not filled show warning
-    wWarnings.innerHTML = 'Please fill the fields and then try again.'; // add warning text
-    wWarnings.style.display = 'block'; // show warning section
+    showWarnings('Please fill the fields and then try again.'); // show warning text
   } else { // else if fields are filled start sending ajax request on openweathermap.org API and rendering parsed response in DOM
     const xhr = new XMLHttpRequest(); // HTTP request
     // start creating request on openweathermap.org to get the city weather information that user wanted
     xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName.value + ',' + countryCode.value + '&APPID=e29d9aac171a7897d2de7eff65957b78', false);
     try { // try section, when code below contains an error, we catching this error
       xhr.send(); // send our request
-      if (xhr.status != 200 && xhr.readyState != 4) { // if response is not OK, handle an error
-        console.error('Error ' + xhr.status + ': ' + xhr.statusText); // show error
-        throw 'Please check Your internet connection and try again.'; //throw an error
+      if (xhr.status != 200 || xhr.readyState != 4) { // if response is not OK, handle an error
+        showWarnings('Please check Your internet connection or spelling and the data you entered.'); // show warning text
       } else { // else if response is OK, display results
         const wData = JSON.parse(xhr.responseText); // parsing JSON format
         const _wTemp = Math.round(wData.main.temp - 273,15); // converting temperature to Celsius, because in response temperature is returned Kelvins
@@ -44,16 +46,7 @@ loadWeather.addEventListener('click', () => { // start loading weather informati
         }
       }
     } catch (err) { // catch an error
-      if (err instanceof TypeError) {
-        wWarnings.innerHTML = 'Please check the spelling and the data you entered.'; // add warning text
-        wWarnings.style.display = 'block'; // show warning text to user
-      } else if (err instanceof DOMException) {
-        wWarnings.innerHTML = 'Please check Your internet connection and try again.'; // add warning text
-        wWarnings.style.display = 'block'; // show warning text to user
-      } else {
-        wWarnings.innerHTML = err; // add warning text
-        wWarnings.style.display = 'block'; // show warning text to user
-      }
+      showWarnings(err); // show warning text
     }
   }
 });
